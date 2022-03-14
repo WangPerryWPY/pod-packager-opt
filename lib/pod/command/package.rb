@@ -19,6 +19,7 @@ module Pod
           ['--exclude-deps', 'Exclude symbols from dependencies.'],
           ['--configuration', 'Build the specified configuration (e.g. Debug). Defaults to Release'],
           ['--subspecs', 'Only include the given subspecs'],
+          ['--local',   'Use local files'],
           ['--spec-sources=private,https://github.com/CocoaPods/Specs.git', 'The sources to pull dependant ' \
             'pods from (defaults to https://github.com/CocoaPods/Specs.git)']
         ]
@@ -32,10 +33,11 @@ module Pod
         @mangle = argv.flag?('mangle', true)
         @bundle_identifier = argv.option('bundle-identifier', nil)
         @exclude_deps = argv.flag?('exclude-deps', false)
+        @local = argv.flag?('local', false)
         @name = argv.shift_argument
         @source = argv.shift_argument
         @spec_sources = argv.option('spec-sources', 'https://github.com/CocoaPods/Specs.git').split(',')
-
+        
         subspecs = argv.option('subspecs')
         @subspecs = subspecs.split(',') unless subspecs.nil?
 
